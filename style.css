@@ -1,0 +1,85 @@
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-image: url("./img/изображение_viber_2025-10-30_12-27-07-542.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.calculator {
+  background: #fff;
+  padding: 24px 32px;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  width: 340px;
+}
+
+h2 {
+  text-align: center;
+  color: #2a2a2a;
+  margin-bottom: 20px;
+}
+
+.field {
+  margin-bottom: 14px;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+  color: #333;
+}
+
+input[type="number"] {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+}
+
+input[type="checkbox"] {
+  transform: scale(1.2);
+  margin-right: 8px;
+}
+
+button {
+  width: 100%;
+  background: #0078ff;
+  color: white;
+  border: none;
+  padding: 10px 0;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+button:hover {
+  background: #0063d1;
+}
+
+.results {
+  margin-top: 20px;
+  background: #f2f4f7;
+  border-radius: 10px;
+  padding: 12px 14px;
+  border: 1px solid #e0e0e0;
+}
+
+.results div {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+.results b {
+  color: #222;
+}

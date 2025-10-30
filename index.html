@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Kalkulator stawki - Umowa zlecenie</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <div class="calculator">
+    <h2>Kalkulator stawki (Umowa zlecenie)</h2>
+
+    <div class="field">
+      <label for="netto">Stawka netto (PLN/h):</label>
+      <input type="number" id="netto" step="0.01" placeholder="np. 25.00">
+    </div>
+
+    <div class="field">
+      <label for="marza">Marża (%):</label>
+      <input type="number" id="marza" step="1" placeholder="np. 20">
+    </div>
+
+    <div class="field">
+      <label>
+        <input type="checkbox" id="mieszkanie">
+        Klient ma swoje mieszkanie
+      </label>
+    </div>
+    <div class="field">
+    <label>PIT-2:</label>
+    <label><input type="radio" name="pit2" value="tak" checked> TAK</label>
+    <label><input type="radio" name="pit2" value="nie"> NIE</label>
+  </div>
+
+
+    <button id="oblicz">Oblicz</button>
+
+    <div class="results" id="wynik" style="display:none;">
+      <div><b>Stawka brutto:</b> <span id="brutto"></span> zł</div>
+      <div><b>Całkowity koszt pracodawcy:</b> <span id="koszt"></span> zł</div>
+      <div><b>Stawka dla klienta:</b> <span id="klient"></span> zł</div>
+    </div>
+  </div>
+<script src="./js/scrypt.js"></script>
+</body>
+</html>
