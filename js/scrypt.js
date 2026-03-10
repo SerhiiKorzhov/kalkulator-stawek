@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const nettoInput = document.getElementById("netto");
   const marzaInput = document.getElementById("marza");
+  const stawkaKlientaInput = document.getElementById("stawka_klienta");
   const mieszkanieInput = document.getElementById("mieszkanie");
 
   const godzinyInput = document.getElementById("godziny");
@@ -16,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function oblicz() {
     let netto = parseFloat(nettoInput.value);
     let marza = parseFloat(marzaInput.value);
+    let stawkaKlientaPodana = parseFloat(stawkaKlientaInput.value);
     let mieszkanie = mieszkanieInput.checked;
 
     let godziny = parseFloat(godzinyInput.value);
@@ -28,11 +30,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (
       isNaN(netto) ||
-      isNaN(marza) ||
       isNaN(godziny) ||
       isNaN(pokazaneGodziny) ||
       isNaN(pracownicy)
     ) {
+      document.getElementById("wynik").style.display = "none";
+      return;
+    }
+
+    if (isNaN(marza) && isNaN(stawkaKlientaPodana)) {
       document.getElementById("wynik").style.display = "none";
       return;
     }
@@ -48,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function nettoZBrutto(brutto) {
-      let skladkiPracownika = brutto * (0.0976 + 0.015); // emerytalna + rentowa
+      let skladkiPracownika = brutto * (0.0976 + 0.015);
       let podstawaZdrowotna = brutto - skladkiPracownika;
       let skladkaZdrowotna = podstawaZdrowotna * 0.09;
       return brutto - skladkiPracownika - skladkaZdrowotna;
@@ -63,19 +69,28 @@ document.addEventListener("DOMContentLoaded", function () {
     while (true) {
       nettoObliczone = nettoZBrutto(brutto);
       if (Math.abs(nettoObliczone - netto) < 0.01 || iter > maxIter) break;
-      brutto += (nettoObliczone < netto) ? krok : -krok;
+      brutto += nettoObliczone < netto ? krok : -krok;
       iter++;
     }
 
-    // koszt pracodawcy za 1h pokazana
+    // koszt pracodawcy za 1h pokazaną
     let koszt = brutto * (1 + 0.0976 + 0.065 + 0.0167 + 0.0245 + 0.0001);
 
-    // stawka klienta za 1h
-    let klient = koszt * (1 + marza / 100);
+    // stawka klienta
+    let klient = 0;
+    let trybWyliczenia = "";
 
-    // jeśli klient nie ma swojego mieszkania, doliczamy +1 zł / h
-    if (!mieszkanie) {
-      klient += 1;
+    if (!isNaN(stawkaKlientaPodana)) {
+      klient = stawkaKlientaPodana;
+      trybWyliczenia = "Stawka podana przez klienta";
+    } else {
+      klient = koszt * (1 + marza / 100);
+
+      if (!mieszkanie) {
+        klient += 1;
+      }
+
+      trybWyliczenia = "Stawka wyliczona z marży";
     }
 
     let godzinyNiepokazane = godziny - pokazaneGodziny;
@@ -83,11 +98,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // pełna wypłata pracownika
     let wynagrodzenieNetto = netto * godziny;
 
-    // dodatkowy narzut legalny tylko na pokazywane godziny
+    // dodatkowy koszt legalnego zatrudnienia tylko dla godzin pokazywanych
     let narzutLegalnyNaGodzine = koszt - netto;
     let narzutLegalny = narzutLegalnyNaGodzine * pokazaneGodziny;
 
-    // mieszkanie liczymy tylko jeśli klient go nie zapewnia
+    // mieszkanie tylko jeśli klient go nie zapewnia
     let mieszkanieDoKosztu = mieszkanie ? 0 : kosztMieszkania;
 
     // łączny koszt 1 pracownika
@@ -104,8 +119,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // zysk z 1 pracownika
     let zysk1 = przychod1 - kosztLaczny1;
 
-    // realna marża
+    // rzeczywista marża
     let marzaRealna1 = przychod1 > 0 ? (zysk1 / przychod1) * 100 : 0;
+
+    // marża na samej stawce klienta względem kosztu 1h pokazanej
+    let marzaStawkiKlienta = koszt > 0 ? ((klient - koszt) / koszt) * 100 : 0;
+
+    // minimalna stawka klienta przy zysku 0
+    let minimalnaStawka = godziny > 0 ? kosztLaczny1 / godziny : 0;
 
     // wszyscy pracownicy
     let przychodWszyscy = przychod1 * pracownicy;
@@ -117,6 +138,9 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("brutto").textContent = brutto.toFixed(2);
     document.getElementById("koszt").textContent = koszt.toFixed(2);
     document.getElementById("klient").textContent = klient.toFixed(2);
+    document.getElementById("tryb_wyliczenia").textContent = trybWyliczenia;
+    document.getElementById("marza_stawki_klienta").textContent = marzaStawkiKlienta.toFixed(2);
+    document.getElementById("minimalna_stawka").textContent = minimalnaStawka.toFixed(2);
 
     document.getElementById("godziny_niepokazane").textContent = godzinyNiepokazane.toFixed(2);
     document.getElementById("wynagrodzenie_netto").textContent = wynagrodzenieNetto.toFixed(2);
@@ -139,6 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   nettoInput.addEventListener("input", oblicz);
   marzaInput.addEventListener("input", oblicz);
+  stawkaKlientaInput.addEventListener("input", oblicz);
   mieszkanieInput.addEventListener("change", oblicz);
   godzinyInput.addEventListener("input", oblicz);
   pokazaneGodzinyInput.addEventListener("input", oblicz);

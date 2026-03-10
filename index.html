@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Kalkulator stawki - Umowa zlecenie</title>
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css?v=3">
 </head>
 <body>
 
@@ -16,8 +16,13 @@
     </div>
 
     <div class="field">
-      <label for="marza">Marża (%):</label>
+      <label for="marza">Założona marża (%):</label>
       <input type="number" id="marza" step="0.01" placeholder="np. 20">
+    </div>
+
+    <div class="field">
+      <label for="stawka_klienta">Stawka klienta (jeśli podana przez klienta) PLN/h:</label>
+      <input type="number" id="stawka_klienta" step="0.01" placeholder="np. 38.00">
     </div>
 
     <div class="field">
@@ -64,20 +69,23 @@
       <div><b>Stawka brutto (1h):</b> <span id="brutto"></span> zł</div>
       <div><b>Całkowity koszt pracodawcy (1h pokazana):</b> <span id="koszt"></span> zł</div>
       <div><b>Stawka dla klienta (1h):</b> <span id="klient"></span> zł</div>
+      <div><b>Tryb wyliczenia:</b> <span id="tryb_wyliczenia"></span></div>
+      <div><b>Marża na stawce klienta:</b> <span id="marza_stawki_klienta"></span> %</div>
+      <div><b>Minimalna stawka klienta (próg 0 zysku):</b> <span id="minimalna_stawka"></span> zł</div>
 
       <hr>
 
       <h3>Rozliczenie 1 pracownika / miesiąc</h3>
       <div><b>Godziny niepokazywane:</b> <span id="godziny_niepokazane"></span> h</div>
       <div><b>Wynagrodzenie pracownika netto:</b> <span id="wynagrodzenie_netto"></span> zł</div>
-      <div><b>Narzut legalny na godziny pokazywane:</b> <span id="narzut_legalny"></span> zł</div>
+      <div><b>Dodatkowy koszt legalnego zatrudnienia:</b> <span id="narzut_legalny"></span> zł</div>
       <div><b>Mieszkanie:</b> <span id="mieszkanie_wynik"></span> zł</div>
       <div><b>Transport:</b> <span id="transport_wynik"></span> zł</div>
       <div><b>Odzież:</b> <span id="odziez_wynik"></span> zł</div>
       <div><b>Łączny koszt 1 pracownika:</b> <span id="koszt_laczny_1"></span> zł</div>
       <div><b>Przychód z 1 pracownika:</b> <span id="przychod_1"></span> zł</div>
       <div><b>Zysk z 1 pracownika:</b> <span id="zysk_1"></span> zł</div>
-      <div><b>Realna marża:</b> <span id="marza_realna_1"></span> %</div>
+      <div><b>Rzeczywista marża 1 pracownika:</b> <span id="marza_realna_1"></span> %</div>
 
       <hr>
 
@@ -85,7 +93,7 @@
       <div><b>Łączny przychód:</b> <span id="przychod_wszyscy"></span> zł</div>
       <div><b>Łączny koszt:</b> <span id="koszt_wszyscy"></span> zł</div>
       <div><b>Łączny zysk:</b> <span id="zysk_wszyscy"></span> zł</div>
-      <div><b>Realna marża łącznie:</b> <span id="marza_realna_wszyscy"></span> %</div>
+      <div><b>Rzeczywista marża łącznie:</b> <span id="marza_realna_wszyscy"></span> %</div>
     </div>
   </div>
 
