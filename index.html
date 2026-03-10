@@ -11,13 +11,13 @@
     <h2>Kalkulator stawki (Umowa zlecenie)</h2>
 
     <div class="field">
-      <label for="netto">Stawka netto (PLN/h):</label>
+      <label for="netto">Stawka netto pracownika (PLN/h):</label>
       <input type="number" id="netto" step="0.01" placeholder="np. 25.00">
     </div>
 
     <div class="field">
       <label for="marza">Marża (%):</label>
-      <input type="number" id="marza" step="1" placeholder="np. 20">
+      <input type="number" id="marza" step="0.01" placeholder="np. 20">
     </div>
 
     <div class="field">
@@ -26,21 +26,69 @@
         Klient ma swoje mieszkanie
       </label>
     </div>
-    <div class="field">
-    <label>PIT-2:</label>
-    <label><input type="radio" name="pit2" value="tak" checked> TAK</label>
-    <label><input type="radio" name="pit2" value="nie"> NIE</label>
-  </div>
 
+    <div class="field">
+      <label for="godziny">Faktyczna ilość godzin / miesiąc:</label>
+      <input type="number" id="godziny" step="1" placeholder="np. 260">
+    </div>
+
+    <div class="field">
+      <label for="pokazane_godziny">Godziny pokazywane:</label>
+      <input type="number" id="pokazane_godziny" step="1" placeholder="np. 80">
+    </div>
+
+    <div class="field">
+      <label for="pracownicy">Liczba pracowników:</label>
+      <input type="number" id="pracownicy" step="1" placeholder="np. 10">
+    </div>
+
+    <div class="field">
+      <label for="koszt_mieszkania">Koszt mieszkania / 1 pracownik / miesiąc (PLN):</label>
+      <input type="number" id="koszt_mieszkania" step="0.01" placeholder="np. 900">
+    </div>
+
+    <div class="field">
+      <label for="koszt_transportu">Koszt transportu / 1 pracownik / miesiąc (PLN):</label>
+      <input type="number" id="koszt_transportu" step="0.01" placeholder="np. 150">
+    </div>
+
+    <div class="field">
+      <label for="koszt_odziezy">Koszt odzieży / 1 pracownik (PLN):</label>
+      <input type="number" id="koszt_odziezy" step="0.01" placeholder="np. 100">
+    </div>
 
     <button id="oblicz">Oblicz</button>
 
     <div class="results" id="wynik" style="display:none;">
-      <div><b>Stawka brutto:</b> <span id="brutto"></span> zł</div>
-      <div><b>Całkowity koszt pracodawcy:</b> <span id="koszt"></span> zł</div>
-      <div><b>Stawka dla klienta:</b> <span id="klient"></span> zł</div>
+      <h3>Stawki podstawowe</h3>
+      <div><b>Stawka brutto (1h):</b> <span id="brutto"></span> zł</div>
+      <div><b>Całkowity koszt pracodawcy (1h pokazana):</b> <span id="koszt"></span> zł</div>
+      <div><b>Stawka dla klienta (1h):</b> <span id="klient"></span> zł</div>
+
+      <hr>
+
+      <h3>Rozliczenie 1 pracownika / miesiąc</h3>
+      <div><b>Godziny niepokazywane:</b> <span id="godziny_niepokazane"></span> h</div>
+      <div><b>Wynagrodzenie pracownika netto:</b> <span id="wynagrodzenie_netto"></span> zł</div>
+      <div><b>Narzut legalny na godziny pokazywane:</b> <span id="narzut_legalny"></span> zł</div>
+      <div><b>Mieszkanie:</b> <span id="mieszkanie_wynik"></span> zł</div>
+      <div><b>Transport:</b> <span id="transport_wynik"></span> zł</div>
+      <div><b>Odzież:</b> <span id="odziez_wynik"></span> zł</div>
+      <div><b>Łączny koszt 1 pracownika:</b> <span id="koszt_laczny_1"></span> zł</div>
+      <div><b>Przychód z 1 pracownika:</b> <span id="przychod_1"></span> zł</div>
+      <div><b>Zysk z 1 pracownika:</b> <span id="zysk_1"></span> zł</div>
+      <div><b>Realna marża:</b> <span id="marza_realna_1"></span> %</div>
+
+      <hr>
+
+      <h3>Wszyscy pracownicy / miesiąc</h3>
+      <div><b>Łączny przychód:</b> <span id="przychod_wszyscy"></span> zł</div>
+      <div><b>Łączny koszt:</b> <span id="koszt_wszyscy"></span> zł</div>
+      <div><b>Łączny zysk:</b> <span id="zysk_wszyscy"></span> zł</div>
+      <div><b>Realna marża łącznie:</b> <span id="marza_realna_wszyscy"></span> %</div>
     </div>
   </div>
-<script src="./js/scrypt.js"></script>
+
+  <script src="./js/scrypt.js"></script>
 </body>
 </html>
